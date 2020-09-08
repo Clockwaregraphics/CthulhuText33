@@ -1,0 +1,90 @@
+import random, time
+
+name = input("What is your name? ")
+Type = ["Fire", "Water"]
+
+Player = {"Name": name, "Type" : random.choice(Type), "Health" : 100}
+PType = Player["Type"]
+PHealth = Player["Health"]
+
+print("Welcome to the lair of Cthulhu, " + Player["Name"] + "." + " Get Ready For The Battle.")
+
+Cthulhu = {"Name" : "Cthulhu", "Type" : "Neutral", "Health" : 100}
+CType = Cthulhu["Type"]
+CHealth = Cthulhu["Health"]
+CCP = 0
+CP = 0
+
+CthulhuMoves = ["Attack", "Finisher"]
+
+Turns = ["Cthulhu"]
+
+def CAttack():
+    print("Cthulhu has Used Attack")
+    PHealth -= random.randint(4, 8)
+    print(PHealth)
+    CCP += 1
+
+def CFinisher():
+    print("Cthulhu has Used Finisher")
+    PHealth -= random.randint(9, 12)
+    print(PHealth)
+
+def PAttack():
+    print("You Have Used Attack")
+    CHealth -= random.randint(4, 8)
+    print(CHealth)
+    CP += 1
+
+def PFinisher():
+    print("You Have Used Attack")
+    CHealth -= random.randint(4, 8)
+    print(CHealth)
+
+
+ 
+print("Your type is " + PType)
+Turn = random.choice(Turns)
+
+while PHealth > 0:
+    if Turn == "Player":
+        Move = input("Select A Move ")
+        Turn = "Cthulhu"
+        time.sleep(1)
+        if Move == "Attack":
+           PAttack()
+           Move = ""
+        elif Move == "Finisher":
+            if CP == 5:
+                PFinisher()
+                Move = ""
+            else:
+                Turn = "Player"
+        else:
+            Turn = "Player"
+
+    elif Turn == "Cthulhu":
+        CMove = random.choice(CthulhuMoves)
+        Turn = "Player"
+        time.sleep(1)
+        if CMove == "Attack":
+            CAttack()
+            CMove = ""
+        elif CMove == "Finisher":
+            if CCP == 5:
+                CFinisher()
+                CMove = ""
+            else: 
+                Turn = "Cthulhu"               
+else:
+    print("Cthulhu: Be sent to hell Fiend!!!!!")
+
+
+
+
+
+
+        
+
+
+
