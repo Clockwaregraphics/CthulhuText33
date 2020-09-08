@@ -4,6 +4,7 @@ name = input("What is your name? ")
 Type = ["Fire", "Water"]
 
 Player = {"Name": name, "Type" : random.choice(Type), "Health" : 100}
+PName = Player["Name"]
 PType = Player["Type"]
 PHealth = Player["Health"]
 
@@ -17,29 +18,43 @@ CP = 0
 
 CthulhuMoves = ["Attack", "Finisher"]
 
-Turns = ["Cthulhu"]
+Turns = ["Cthulhu", "Player"]
 
 def CAttack():
+    global PHealth
+    global CCP
+    global PName
     print("Cthulhu has Used Attack")
     PHealth -= random.randint(4, 8)
-    print(PHealth)
+    print(PName + ": " + str(PHealth))
     CCP += 1
 
 def CFinisher():
+    global PHealth
+    global CCP
+    global PName
     print("Cthulhu has Used Finisher")
     PHealth -= random.randint(9, 12)
-    print(PHealth)
+    print(PName + ": " + str(PHealth))
+    CCP -= 5
 
 def PAttack():
+    global CHealth
+    global CP
     print("You Have Used Attack")
     CHealth -= random.randint(4, 8)
-    print(CHealth)
+    print("Cthulhu" + ": " + str(CHealth))
     CP += 1
+    print("Combo Point: " + str(CP))
 
 def PFinisher():
-    print("You Have Used Attack")
+    global CHealth
+    global CP
+    print("You Have Used Finisher")
     CHealth -= random.randint(4, 8)
-    print(CHealth)
+    print("Cthulhu" + ": " + str(CHealth))
+    CP -= 5
+    print("Combo Point: " + str(CP))
 
 
  
@@ -75,16 +90,12 @@ while PHealth > 0:
                 CFinisher()
                 CMove = ""
             else: 
-                Turn = "Cthulhu"               
-else:
-    print("Cthulhu: Be sent to hell Fiend!!!!!")
-
-
-
-
-
-
-        
-
-
-
+                Turn = "Cthulhu"  
+        if CCP == 5:
+            CFinisher()             
+    if PHealth <= 0:
+        print("Cthulhu: Be sent to hell Fiend!!!!!")
+        break
+    elif CHealth <= 0:
+        print("You Have Slayed Cthulhu!!!!!")
+        break
